@@ -65,6 +65,8 @@ img {
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   /* align-self: center; */
+  grid-column-start: 2;
+  grid-column-end: 4;
 }
 .username {
   display: block;
@@ -75,6 +77,7 @@ img {
   text-align: left;
   border-right: 1px solid black;
   grid-column-start: 2;
+  grid-column-end: 4;
 }
 
 .profile-stats {
@@ -84,6 +87,6 @@ img {
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 4;
 }
 </style>
