@@ -1,14 +1,15 @@
 <template>
   <div id="header">
     <div class="name">
-      <span>Shmedia</span>
-      <i class="fas fa-camera"></i>
+      <router-link to="/">
+        <span>Shmedia</span>
+        <i class="fas fa-camera"></i>
+      </router-link>
     </div>
     <!-- <div class="greeting">
       <span>Hello, {{ username }}</span>
     </div> -->
     <div id="nav">
-      <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/profile">Profile</router-link>
     </div>
@@ -42,17 +43,20 @@ export default {
   font-size: 2em;
   align-self: center;
 }
-.name:hover {
-  color: #42b983;
-  cursor: pointer;
+.name a {
+  text-decoration: none;
+  color: inherit;
 }
-#nav {
+.name:active {
+  color: #42b983;
+}
+.name #nav {
   align-self: center;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e505d;
+  color: #2c3e50ab;
 }
 
 #nav a.router-link-exact-active {
