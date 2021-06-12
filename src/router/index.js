@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+// import Auth from "../auth";
 
 const routes = [
   {
@@ -19,6 +20,7 @@ const routes = [
   {
     path: "/profile",
     name: "Profile",
+    // beforeEnter: Auth.routeGuard,
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
   },

@@ -6,12 +6,18 @@
         <i class="fas fa-camera"></i>
       </router-link>
     </div>
-    <!-- <div class="greeting">
-      <span>Hello, {{ username }}</span>
-    </div> -->
     <div id="nav">
       <router-link to="/about">About</router-link> |
       <router-link to="/profile">Profile</router-link>
+      <!-- <div v-if="!Auth.loading._value">
+        <button v-if="!Auth.isAuthenticated._value" @click="login">
+          Log in
+        </button>
+        <button v-if="Auth.isAuthenticated._value" @click="logout">
+          Log out
+        </button>
+        <pre>{{ Auth }}</pre>
+      </div> -->
     </div>
   </div>
 </template>
@@ -19,10 +25,17 @@
 <script>
 export default {
   name: "Header",
-  computed: {
-    username() {
-      return this.$store.state.currUser.username;
-    },
+  // inject: ["Auth"],
+  methods: {
+    // login() {
+    //   this.Auth.loginWithRedirect();
+    // },
+    // // Log the user out
+    // logout() {
+    //   this.Auth.logout({
+    //     returnTo: window.location.origin,
+    //   });
+    // },
   },
 };
 </script>

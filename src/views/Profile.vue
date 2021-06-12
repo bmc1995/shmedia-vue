@@ -1,5 +1,6 @@
 <template>
   <div id="profileContainer"><UserCard /> <ProfilePosts /></div>
+  <!-- <pre>{{ token }}</pre> -->
 </template>
 
 <script>
@@ -8,10 +9,17 @@ import ProfilePosts from "../components/ProfilePosts.vue";
 
 export default {
   name: "Profile",
+  // inject: ["Auth"],
   components: {
     UserCard,
     ProfilePosts,
   },
+  // computed: {
+  //   token() {
+  //     console.log(this.Auth.getIdTokenClaims());
+  //     return this.Auth.getIdTokenClaims();
+  //   },
+  // },
 };
 </script>
 
