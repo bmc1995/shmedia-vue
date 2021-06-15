@@ -45,12 +45,12 @@ export default {
 
 <style scoped>
 #postsContainer {
-  /* text-align: left; */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   row-gap: 20px;
   justify-items: center;
-  /* align-items: center; */
+  max-width: 1000px;
+  margin: auto;
 }
 
 img {

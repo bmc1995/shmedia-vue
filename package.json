@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "CLIENT_ID=0oa10e6tp63UHQV2L5d7 ISSUER=https://dev-35416340.okta.com OKTA_TESTING_DISABLEHTTPSCHECK=true vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.15.0",
+    "@okta/okta-auth-js": "^4.9.2",
+    "@okta/okta-vue": "^4.0.1",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",

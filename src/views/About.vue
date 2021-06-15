@@ -1,17 +1,17 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <Login />
+    <p>you are logged in as {{ pref_name }}</p>
   </div>
 </template>
 
 <script>
-import Login from "../components/Login.vue";
-
 export default {
   name: "About",
-  components: {
-    Login,
+  computed: {
+    pref_name() {
+      return this.$data.authState.idToken.claims.preferred_username;
+    },
   },
 };
 </script>

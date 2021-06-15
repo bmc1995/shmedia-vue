@@ -17,13 +17,30 @@ export default {
     // Profile,
     HelloWorld,
   },
+  data() {
+    return { claims: "" };
+  },
+  created() {
+    this.setup();
+  },
+  methods: {
+    async setup() {
+      if (this.authState.isAuthenticated) {
+        console.log(this.authState);
+        this.$data.claims = await this.$auth.getUser();
+      }
+    },
+    login() {
+      this.$auth.signInWithRedirect("/");
+    },
+  },
 };
 </script>
 
 <style scoped>
 #HomeContainer {
   /* display: flex; */
-  justify-content: center;
+  /* justify-content: center; */
   /* align-items: center; */
   /* flex-direction: column; */
 }
