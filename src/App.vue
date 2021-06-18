@@ -2,8 +2,9 @@
   <div id="header">
     <div class="name">
       <router-link to="/">
-        <span>Shmedia</span>
-        <i class="fas fa-camera"></i>
+        <img src="../testImages/shmediaLogoHeaderV1.png" alt="Shmedia logo" />
+        <!-- <span>Shmedia</span>
+        <i class="fas fa-camera"></i> -->
       </router-link>
     </div>
     <div id="nav">
@@ -84,4 +85,11 @@ body {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* @media only screen and (max-width: 500px) {
+  img {
+    width: 150px;
+    height: 50px;
+  }
+} */
 </style>

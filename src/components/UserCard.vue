@@ -3,37 +3,67 @@
 <template>
   <div id="container">
     <div class="profile-img">
-      <img
-        class="profile-img"
-        src="../../testImages/best-portrait-photographers-in-detroit-1080x600.jpg"
-        alt="Test profile iamge"
-      />
+      <img class="profile-img" :src="profilePicSrc" alt="Test profile iamge" />
     </div>
     <div class="profile-options">
-      <span class="username"><strong>@billymccrackin</strong></span>
+      <span class="username"
+        ><strong>{{ userName }}</strong></span
+      >
       <button class="followBtn">Follow</button>
       <button class="optionsBtn">...</button>
     </div>
     <div class="profile-bio">
-      <strong class="goes-by">Billy McCrackin</strong>
+      <strong class="goes-by">{{ displayName }}</strong>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos doloremque
-        itaque, nam veritatis, error velit necessitatib
+        {{ bio }}
       </p>
     </div>
     <div class="profile-stats">
-      <span class="postsCount"><strong>Posts: </strong>22</span>
+      <span class="postsCount"><strong>Posts:</strong> {{ counts.posts }}</span>
       <span>|</span>
-      <span class="followingCount"><strong>Following: </strong>56</span>
+      <span class="followingCount"
+        ><strong>Following:</strong> {{ counts.following }}</span
+      >
       <span>|</span>
-      <span class="followersCount"><strong>Followers: </strong>10</span>
+      <span class="followersCount"
+        ><strong>Followers:</strong> {{ counts.followers }}</span
+      >
     </div>
   </div>
 </template>
 
 <script>
+//dev default
+import defaultPic from "../../testImages/best-portrait-photographers-in-detroit-1080x600.jpg";
 export default {
   name: "UserCard",
+  props: {
+    displayName: {
+      type: String,
+      default: "Dev McDeverton",
+    },
+    userName: {
+      type: String,
+      default: "devDefault",
+    },
+    bio: {
+      type: String,
+      default: "devDefault bio lorem ipsum dolor set amet",
+    },
+    profilePicSrc: {
+      type: String,
+      default: defaultPic,
+    },
+    counts: {
+      type: Object,
+      default: Object.create({ posts: 0, following: 0, followers: 0 }),
+    },
+  },
+  methods: {
+    async sendFollowReq() {
+      //send follow req to shmedia api with auth token.  Get userId using okta id from okta (inside mongodb user store)
+    },
+  },
 };
 </script>
 
