@@ -15,7 +15,9 @@
         |
         <button @click="logout">Log out</button>
       </div>
-      <button v-if="!authState.isAuthenticated" @click="login">Log in</button>
+      <router-link to="/authenticate">
+        <button v-if="!authState.isAuthenticated">Log in</button>
+      </router-link>
     </div>
   </div>
   <router-view />
@@ -23,17 +25,18 @@
 
 <script>
 // import Header from "./components/Header.vue";
+import config from "../auth_config";
 export default {
   name: "App",
-  // components: {
-  //   Header,
-  // },
+
   methods: {
-    login() {
-      this.$auth.signInWithRedirect("/");
-    },
     async logout() {
+      // Read idToken before local session is cleared
+      const idToken = await this.$auth.getIdToken();
+      // Clear local session
       await this.$auth.signOut();
+      // Clear remote session
+      window.location.href = `${config.oidc.issuer}/v1/logout?id_token_hint=${idToken}&post_logout_redirect_uri=http://localhost:8080`;
     },
   },
 };
@@ -85,11 +88,4 @@ body {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
-/* @media only screen and (max-width: 500px) {
-  img {
-    width: 150px;
-    height: 50px;
-  }
-} */
 </style>
