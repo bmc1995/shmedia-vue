@@ -31,6 +31,15 @@ const routes = [
       import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
   },
   {
+    path: "/upload",
+    name: "Upload",
+    meta: {
+      requiresAuth: true,
+    },
+    component: () =>
+      import(/* webpackChunkName: "upload" */ "../views/Upload.vue"),
+  },
+  {
     path: "/authenticate",
     name: "Authenticate",
     component: Authenticate,
