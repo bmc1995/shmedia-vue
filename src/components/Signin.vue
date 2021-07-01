@@ -8,12 +8,11 @@
 import OktaSignIn from "@okta/okta-signin-widget";
 import "@okta/okta-signin-widget/dist/css/okta-sign-in.min.css";
 import config from "../../auth_config";
-
 export default {
   name: "Login",
   mounted: function () {
     this.$nextTick(function () {
-      const { issuer, clientId, redirectUri, scopes, testing } = config.oidc;
+      const { issuer, clientId, redirectUri, scopes } = config.oidc;
       this.widget = new OktaSignIn({
         /**
          * Note: when using the Sign-In Widget for an OIDC flow, it still
@@ -23,7 +22,6 @@ export default {
         baseUrl: issuer.split("/oauth2")[0],
         clientId,
         redirectUri,
-        testing,
         // eslint-disable-next-line no-undef
         logo: require("../../testImages/shmediaLogoHeaderV1.png"),
         i18n: {
