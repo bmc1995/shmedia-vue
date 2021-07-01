@@ -43,7 +43,39 @@ export default {
     },
     onSubmit(e) {
       e.preventDefault();
-      console.log({ file: this.file, caption: this.caption });
+      this.upload({
+        file: this.file,
+        caption: this.caption,
+        isVideo: this.isVideo || false,
+        okta_uid: this.authState.idToken.claims.sub,
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    },
+    async upload(data) {
+      const formData = new FormData();
+      formData.append("file", data.file);
+      formData.append("caption", data.caption);
+      formData.append("video", data.isVideo);
+      formData.append("okta_uid", data.okta_uid);
+
+      const response = await fetch("http://localhost:3000/posts/create", {
+        method: "POST",
+        // credentials
+        body: formData,
+      })
+        .then((res) => {
+          console.log(res);
+          return res;
+        })
+        .catch((err) => {
+          console.error(err);
+          return err;
+        });
+
+      return response;
     },
   },
 };
