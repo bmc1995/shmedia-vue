@@ -1,11 +1,13 @@
 <template>
   <div id="postsContainer">
-    <img
-      v-for="image in imgArr"
-      :key="image.src"
-      :src="image.src"
-      alt="image"
-    />
+    <div class="imgContainer" v-for="(image, index) in imgArr" :key="index">
+      <img
+        draggable="false"
+        :key="image.media_url"
+        :src="image.media_url"
+        alt="image"
+      />
+    </div>
   </div>
 </template>
 
@@ -15,30 +17,25 @@ export default {
 
   data() {
     return {
-      imgArr: [
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-        {
-          src: "https://cdn.pixabay.com/photo/2016/01/08/11/57/butterflies-1127666__480.jpg",
-        },
-      ],
+      imgArr: [],
     };
+  },
+  created() {
+    this.getImages(this.authState.idToken.claims.sub);
+  },
+  methods: {
+    async getImages(okta_uid) {
+      const response = await fetch("http://localhost:3000/posts/byUsers", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userIdArr: [okta_uid] }),
+      });
+      let a = await response.json();
+      return (this.$data.imgArr = a);
+    },
   },
 };
 </script>
@@ -51,11 +48,24 @@ export default {
   justify-items: center;
   max-width: 1000px;
   margin: auto;
+  padding: 2rem 0rem;
 }
 
 img {
-  max-width: 300px;
-  max-height: 300px;
-  /* padding-bottom: 1rem; */
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  user-select: none;
+}
+.imgContainer {
+  margin: auto;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  outline: auto;
+}
+
+.imgContainer:hover {
+  box-shadow: 2px 2px 15px 7px black;
 }
 </style>

@@ -13,6 +13,8 @@
         |
         <router-link to="/profile">Profile</router-link>
         |
+        <router-link to="/upload">Upload</router-link>
+        |
         <button @click="logout">Log out</button>
       </div>
       <router-link to="/authenticate">

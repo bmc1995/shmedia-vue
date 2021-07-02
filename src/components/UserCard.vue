@@ -40,15 +40,15 @@ export default {
   props: {
     displayName: {
       type: String,
-      default: "Dev McDeverton",
+      default: "...",
     },
     userName: {
       type: String,
-      default: "devDefault",
+      default: "...",
     },
     bio: {
       type: String,
-      default: "devDefault bio lorem ipsum dolor set amet",
+      default: "Loading...",
     },
     profilePicSrc: {
       type: String,
