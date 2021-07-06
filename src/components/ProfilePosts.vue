@@ -15,26 +15,10 @@
 export default {
   name: "ProfilePosts",
 
-  data() {
-    return {
-      imgArr: [],
-    };
-  },
-  created() {
-    this.getImages(this.authState.idToken.claims.sub);
-  },
-  methods: {
-    async getImages(okta_uid) {
-      const response = await fetch("http://localhost:3000/posts/byUsers", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userIdArr: [okta_uid] }),
-      });
-      let a = await response.json();
-      return (this.$data.imgArr = a);
+  props: {
+    imgArr: {
+      type: Array,
+      deafult: [],
     },
   },
 };

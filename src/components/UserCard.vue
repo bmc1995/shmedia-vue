@@ -34,7 +34,7 @@
 
 <script>
 //dev default
-import defaultPic from "../../testImages/best-portrait-photographers-in-detroit-1080x600.jpg";
+import defaultPic from "../../testImages/question-mark.png";
 export default {
   name: "UserCard",
   props: {

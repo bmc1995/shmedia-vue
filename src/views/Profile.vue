@@ -5,8 +5,9 @@
       :bio="bio"
       :profilePicSrc="profilePic_url"
       :displayName="displayName"
+      :counts="counts"
     />
-    <ProfilePosts />
+    <ProfilePosts :imgArr="imgArr" />
     <!-- <button @click="userTestReq">userTestReq</button> -->
   </div>
 </template>
@@ -24,6 +25,7 @@ export default {
   data() {
     return {
       profile: undefined,
+      imgArr: undefined,
     };
   },
   computed: {
@@ -41,16 +43,42 @@ export default {
         ? `${this.profile.first_name} ${this.profile.last_name}`
         : undefined;
     },
+    counts() {
+      return {
+        followers: this.profile?.followers.current.length,
+        following: this.profile?.following.length,
+        posts: this.imgArr?.length,
+      };
+    },
+  },
+  async beforeRouteUpdate(to) {
+    this.profile = await this.getProfileInfo(to.params.username);
   },
   created() {
-    this.getProfileInfo(this.authState.idToken.claims.sub);
+    this.getProfileInfo(this.$route.params.username);
   },
   methods: {
-    async getProfileInfo(okta_uid) {
-      const response = await fetch(`http://localhost:3000/users/${okta_uid}`);
-      const result = await response.json();
-      console.log(result.result);
-      return (this.profile = result.result);
+    async getProfileInfo(username) {
+      const response = await fetch(`http://localhost:3000/users/${username}`)
+        .then((res) => {
+          return res.json();
+        })
+        .catch((err) => err);
+      const result = response.result;
+      result ? this.getPosts(result.okta_uid) : null;
+      return (this.profile = result);
+    },
+    async getPosts(okta_uid) {
+      const response = await fetch("http://localhost:3000/posts/byUsers", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userIdArr: [okta_uid] }),
+      });
+      let posts = await response.json();
+      return (this.imgArr = posts);
     },
   },
 };

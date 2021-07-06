@@ -22,7 +22,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: "/profile",
+    path: "/profile/:username",
     name: "Profile",
     meta: {
       requiresAuth: true,

@@ -11,7 +11,9 @@
       <div v-if="authState.isAuthenticated">
         <router-link to="/about">About</router-link>
         |
-        <router-link to="/profile">Profile</router-link>
+        <router-link :to="`/profile/${this.authState.idToken.claims.name}`"
+          >Profile</router-link
+        >
         |
         <router-link to="/upload">Upload</router-link>
         |
