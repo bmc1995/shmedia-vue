@@ -10,7 +10,17 @@
         ><strong>{{ userName }}</strong></span
       >
       <button class="followBtn">Follow</button>
-      <button class="optionsBtn">...</button>
+      <button
+        @click="
+          $router.push({
+            name: 'UserSettings',
+            params: { bio, first_name, last_name },
+          })
+        "
+        class="optionsBtn"
+      >
+        ...
+      </button>
     </div>
     <div class="profile-bio">
       <strong class="goes-by">{{ displayName }}</strong>
@@ -38,6 +48,12 @@ import defaultPic from "../../testImages/question-mark.png";
 export default {
   name: "UserCard",
   props: {
+    first_name: {
+      type: String,
+    },
+    last_name: {
+      type: String,
+    },
     displayName: {
       type: String,
       default: "...",
