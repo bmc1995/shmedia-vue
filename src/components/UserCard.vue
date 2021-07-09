@@ -9,17 +9,18 @@
       <span class="username"
         ><strong>{{ userName }}</strong></span
       >
-      <button class="followBtn">Follow</button>
       <button
-        @click="
-          $router.push({
-            name: 'UserSettings',
-            params: { bio, first_name, last_name },
-          })
-        "
+        v-if="userName !== authState.idToken.claims.name"
+        class="followBtn"
+      >
+        Follow
+      </button>
+      <button
+        v-if="userName == authState.idToken.claims.name"
+        @click="openSettings"
         class="optionsBtn"
       >
-        ...
+        Edit Profile
       </button>
     </div>
     <div class="profile-bio">
@@ -79,7 +80,11 @@ export default {
     async sendFollowReq() {
       //send follow req to shmedia api with auth token.  Get userId using okta id from okta (inside mongodb user store)
     },
+    openSettings() {
+      this.$emit("toggle-settings");
+    },
   },
+  emits: ["toggle-settings"],
 };
 </script>
 

@@ -41,8 +41,7 @@ export default {
       this.$data.file = e.target.files[0];
       this.previewMediaUrl = URL.createObjectURL(this.$data.file);
     },
-    onSubmit(e) {
-      e.preventDefault();
+    onSubmit() {
       this.upload({
         file: this.file,
         caption: this.caption,

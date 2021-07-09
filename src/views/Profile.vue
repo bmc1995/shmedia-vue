@@ -6,26 +6,42 @@
       :profilePicSrc="profilePic_url"
       :displayName="displayName"
       :counts="counts"
+      v-show="!settingsOpen"
+      @toggle-settings="toggleSettings"
     />
-    <ProfilePosts :imgArr="imgArr" />
-    <!-- <button @click="userTestReq">userTestReq</button> -->
+    <div id="settingsModal">
+      <UserSettings
+        @toggle-settings="toggleSettings"
+        @refresh-info="refreshInfo"
+        v-show="settingsOpen"
+        :currentProfileImg="profilePic_url"
+        :currentFname="`${displayName?.split(' ')[0]}`"
+        :currentLname="`${displayName?.split(' ')[1]}`"
+        :currentBio="bio"
+        :currentUsername="username"
+      />
+    </div>
+    <ProfilePosts v-show="!settingsOpen" :imgArr="imgArr" />
   </div>
 </template>
 
 <script>
 import UserCard from "../components/UserCard.vue";
 import ProfilePosts from "../components/ProfilePosts.vue";
+import UserSettings from "../components/UserSettings.vue";
 
 export default {
   name: "Profile",
   components: {
     UserCard,
     ProfilePosts,
+    UserSettings,
   },
   data() {
     return {
       profile: undefined,
       imgArr: undefined,
+      settingsOpen: false,
     };
   },
   computed: {
@@ -79,6 +95,12 @@ export default {
       });
       let posts = await response.json();
       return (this.imgArr = posts);
+    },
+    refreshInfo(username) {
+      this.getProfileInfo(username);
+    },
+    toggleSettings() {
+      this.settingsOpen = !this.settingsOpen;
     },
   },
 };

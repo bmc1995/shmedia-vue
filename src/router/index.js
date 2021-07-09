@@ -31,18 +31,6 @@ const routes = [
       import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
   },
   {
-    path: "/profile/settings",
-    name: "UserSettings",
-    meta: {
-      requiresAuth: true,
-    },
-    params: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "userSettings" */ "../views/UserSettings.vue"
-      ),
-  },
-  {
     path: "/upload",
     name: "Upload",
     meta: {
