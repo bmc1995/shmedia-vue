@@ -111,6 +111,14 @@ img {
   grid-row-end: 3;
 }
 
+@media only screen and (max-width: 425px) {
+  .profile-img {
+    width: 125px;
+    height: 125px;
+    margin: auto;
+  }
+}
+
 .profile-options {
   /* border-top: 1px solid black; */
   border-bottom: 1px solid black;
@@ -126,6 +134,7 @@ img {
 
 .profile-bio {
   text-align: left;
+  word-break: break-word;
   border-right: 1px solid black;
   grid-column-start: 2;
   grid-column-end: 4;

@@ -44,6 +44,9 @@ export default {
       settingsOpen: false,
     };
   },
+  created() {
+    this.getProfileInfo(this.$route.params.username);
+  },
   computed: {
     username() {
       return this.profile?.username;
@@ -69,9 +72,6 @@ export default {
   },
   async beforeRouteUpdate(to) {
     this.profile = await this.getProfileInfo(to.params.username);
-  },
-  created() {
-    this.getProfileInfo(this.$route.params.username);
   },
   methods: {
     async getProfileInfo(username) {

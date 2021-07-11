@@ -136,7 +136,7 @@ export default {
         .catch((err) => console.log(err));
     },
     clearSettings() {
-      //if key is authState then skip, otherwise, change value to null
+      //if key == authState then skip, otherwise, change value to null
       Object.keys(this.$data).forEach((k) => {
         k == "authState" ? null : (this.$data[k] = null);
       });
