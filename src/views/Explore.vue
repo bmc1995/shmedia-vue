@@ -1,9 +1,7 @@
 <template>
-  <h1>Explore page</h1>
-
   <div id="exploreContainer">
-    <ExploreProfiles v-if="profileFilterOn" />
-    <ExploreMedia v-if="!profileFilterOn" />
+    <ExploreProfiles v-if="profileFilterOn" :profiles="profiles" />
+    <ExploreMedia v-if="!profileFilterOn" :mediaArr="media" />
   </div>
   <!-- <pre>data.profiles = {{ profiles }}</pre>
   <pre>data.media = {{ media }}</pre>
@@ -21,16 +19,32 @@ export default {
     return {
       profiles: [],
       media: [],
-      profileFilterOn: false,
+      profileFilterOn: true,
     };
   },
   created() {
     this.profileFilterOn ? this.getProfiles() : this.getMedia();
   },
+  beforeUpdate() {
+    if (this.profileFilterOn && this.profiles.length < 1) {
+      this.getProfiles();
+    }
+
+    if (!this.profileFilterOn && this.media.length < 1) {
+      this.getMedia();
+    }
+  },
   methods: {
     async getProfiles() {
       //gets all profiles
       console.log("getProfiles called");
+      const response = await fetch(
+        "http://localhost:3000/users/explore/profiles"
+      ).catch((err) => {
+        console.log(err);
+      });
+      let result = await response.json();
+      this.profiles = result.result;
     },
 
     async getMedia() {
@@ -41,7 +55,7 @@ export default {
           console.log(err);
         }
       );
-      return await response.json();
+      this.media = await response.json();
     },
   },
 };
@@ -50,8 +64,5 @@ export default {
 <style scoped>
 #exploreContainer {
   border: 1px solid black;
-}
-
-#toggleFilter {
 }
 </style>

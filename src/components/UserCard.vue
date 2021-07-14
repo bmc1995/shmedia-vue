@@ -3,7 +3,12 @@
 <template>
   <div id="container">
     <div class="profile-img">
-      <img class="profile-img" :src="profilePicSrc" alt="Test profile iamge" />
+      <img
+        class="profile-img"
+        :src="profilePicSrc"
+        @click="goToProfile(userName)"
+        alt="Test profile iamge"
+      />
     </div>
     <div class="profile-options">
       <span class="username"
@@ -29,7 +34,7 @@
         {{ bio }}
       </p>
     </div>
-    <div class="profile-stats">
+    <div v-if="!exploreCard" class="profile-stats">
       <span class="postsCount"><strong>Posts:</strong> {{ counts.posts }}</span>
       <span>|</span>
       <span class="followingCount"
@@ -48,6 +53,7 @@
 import defaultPic from "../../testImages/question-mark.png";
 export default {
   name: "UserCard",
+  emits: ["toggle-settings"],
   props: {
     first_name: {
       type: String,
@@ -75,16 +81,27 @@ export default {
       type: Object,
       default: Object.create({ posts: 0, following: 0, followers: 0 }),
     },
+    exploreCard: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     async sendFollowReq() {
       //send follow req to shmedia api with auth token.  Get userId using okta id from okta (inside mongodb user store)
     },
+    goToProfile(username) {
+      if (this.exploreCard) {
+        return this.$router.push({
+          name: "Profile",
+          params: { username },
+        });
+      }
+    },
     openSettings() {
       this.$emit("toggle-settings");
     },
   },
-  emits: ["toggle-settings"],
 };
 </script>
 

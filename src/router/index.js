@@ -43,7 +43,7 @@ const routes = [
     path: "/explore",
     name: "Explore",
     meta: {
-      requiresAuth: true,
+      // requiresAuth: true,
     },
     component: () =>
       import(/* webpackChunkName: "explore" */ "../views/Explore.vue"),

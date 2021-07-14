@@ -17,6 +17,8 @@
         |
         <router-link to="/upload">Upload</router-link>
         |
+        <router-link to="/explore">Explore</router-link>
+        |
         <button @click="logout">Log out</button>
       </div>
       <router-link to="/authenticate">
