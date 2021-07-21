@@ -1,6 +1,7 @@
 <template>
   <h1>{{ msg }}</h1>
-  <p>Hello, {{ authState.idToken.claims.name }}</p>
+  <p v-if="authState.idToken">Hello, {{ authState.idToken.claims.name }}</p>
+  <p v-if="!authState.idToken">Hello, please log in!</p>
 </template>
 
 <script>

@@ -35,8 +35,8 @@ export default {
 </script>
 <style scoped>
 img {
-  max-width: 50vw;
-  max-height: 50vh;
+  max-width: 500px;
+  max-height: 500px;
   margin: auto;
   user-select: none;
 }
@@ -48,9 +48,28 @@ video {
 }
 .imageContainer {
   margin: 2rem auto;
-  width: 75vw;
-  height: 75vh;
+  max-width: 525px;
+  max-height: 525px;
   display: flex;
   outline: auto;
+}
+
+@media only screen and (max-width: 500px) {
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    padding: 10px 0px;
+  }
+  video {
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  .imageContainer {
+    margin: 2rem auto;
+    /* max-width: 90vw; */
+    /* max-height: 90vh; */
+    width: auto;
+    height: auto;
+  }
 }
 </style>
