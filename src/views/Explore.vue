@@ -1,7 +1,17 @@
 <template>
+  <select id="selectFilter" v-model="selected">
+    <option
+      id="profilesOption"
+      :key="filter"
+      v-for="filter in filters"
+      :value="filter"
+    >
+      {{ filter }}
+    </option>
+  </select>
   <div id="exploreContainer">
-    <ExploreProfiles v-if="profileFilterOn" :profiles="profiles" />
-    <ExploreMedia v-if="!profileFilterOn" :mediaArr="media" />
+    <ExploreProfiles v-if="selected == 'Profiles'" :profiles="profiles" />
+    <ExploreMedia v-if="selected == 'Media'" :mediaArr="media" />
   </div>
   <!-- <pre>data.profiles = {{ profiles }}</pre>
   <pre>data.media = {{ media }}</pre>
@@ -19,20 +29,23 @@ export default {
     return {
       profiles: [],
       media: [],
-      profileFilterOn: true,
+      selected: "Profiles",
+      filters: ["Profiles", "Media"],
     };
   },
   created() {
-    this.profileFilterOn ? this.getProfiles() : this.getMedia();
+    this.selected == "Profiles" ? this.getProfiles() : this.getMedia();
   },
-  beforeUpdate() {
-    if (this.profileFilterOn && this.profiles.length < 1) {
-      this.getProfiles();
-    }
+  watch: {
+    selected: function (newSelection) {
+      if (newSelection == "Profiles" && this.profiles.length < 1) {
+        this.getProfiles();
+      }
 
-    if (!this.profileFilterOn && this.media.length < 1) {
-      this.getMedia();
-    }
+      if (newSelection == "Media" && this.media.length < 1) {
+        this.getMedia();
+      }
+    },
   },
   methods: {
     async getProfiles() {

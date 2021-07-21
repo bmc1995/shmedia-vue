@@ -1,18 +1,26 @@
 <template>
   <h1>Explore Media</h1>
-  <div id="mediaGrid">
-    <div class="imgContainer" v-for="(media, index) in mediaArr" :key="index">
-      <img
+  <div draggable="false" id="mediaGrid">
+    <!-- <div class="imgContainer" v-for="(media, index) in mediaArr" :key="index"> -->
+    <!-- <img
         draggable="false"
         :key="media.media_url"
         :src="media.media_url"
         alt="image"
-      />
-    </div>
+      /> -->
+    <!-- parse media type; turns string to boolean -->
+    <Media
+      v-for="(media, index) in mediaArr"
+      :key="index"
+      :media_url="media.media_url"
+      :mediaType="JSON.parse(media.video) ? 'Video' : 'Image'"
+    />
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
+import Media from "./media.vue";
 export default {
   name: "ExploreMedia",
   props: {
@@ -21,9 +29,9 @@ export default {
       default: new Array(),
     },
   },
-  // components: {
-
-  // },
+  components: {
+    Media,
+  },
 };
 </script>
 

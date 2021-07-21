@@ -1,6 +1,11 @@
 <template>
   <div id="postsContainer">
-    <div class="imgContainer" v-for="(image, index) in imgArr" :key="index">
+    <div
+      class="imgContainer"
+      v-for="(image, index) in imgArr"
+      :key="index"
+      @click="clicked(image)"
+    >
       <img
         draggable="false"
         :key="image.media_url"
@@ -21,6 +26,12 @@ export default {
       deafult: [],
     },
   },
+  methods: {
+    clicked(image) {
+      this.$emit("image-clicked", image);
+    },
+  },
+  emits: ["image-clicked"],
 };
 </script>
 

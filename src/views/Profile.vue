@@ -1,5 +1,12 @@
 <template>
-  <div id="profileContainer">
+  <div id="imageViewerContainer" v-show="showImageViewer">
+    <MediaContainer
+      :media_url="viewerSrc"
+      :mediaType="'Image'"
+      :postedBy="username"
+    />
+  </div>
+  <div v-show="!showImageViewer" id="profileContainer">
     <UserCard
       :userName="username"
       :bio="bio"
@@ -21,7 +28,11 @@
         :currentUsername="username"
       />
     </div>
-    <ProfilePosts v-show="!settingsOpen" :imgArr="imgArr" />
+    <ProfilePosts
+      v-show="!settingsOpen"
+      :imgArr="imgArr"
+      @image-clicked="toggleViewer"
+    />
   </div>
 </template>
 
@@ -29,6 +40,7 @@
 import UserCard from "../components/UserCard.vue";
 import ProfilePosts from "../components/ProfilePosts.vue";
 import UserSettings from "../components/UserSettings.vue";
+import MediaContainer from "../components/mediaContainer.vue";
 
 export default {
   name: "Profile",
@@ -36,12 +48,15 @@ export default {
     UserCard,
     ProfilePosts,
     UserSettings,
+    MediaContainer,
   },
   data() {
     return {
       profile: undefined,
       imgArr: undefined,
       settingsOpen: false,
+      showImageViewer: false,
+      viewerSrc: undefined,
     };
   },
   created() {
@@ -75,7 +90,9 @@ export default {
   },
   methods: {
     async getProfileInfo(username) {
-      const response = await fetch(`http://localhost:3000/users/${username}`)
+      const response = await fetch(
+        `http://localhost:3000/users/find/name/${username}`
+      )
         .then((res) => {
           return res.json();
         })
@@ -101,6 +118,13 @@ export default {
     },
     toggleSettings() {
       this.settingsOpen = !this.settingsOpen;
+    },
+    toggleViewer(image) {
+      this.showImageViewer = !this.showImageViewer;
+
+      if (this.showImageViewer) {
+        this.viewerSrc = image.media_url;
+      }
     },
   },
 };
