@@ -23,4 +23,10 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+#container {
+  margin: 2rem;
+  border: 1px solid black;
+  border-top-left-radius: 20px;
+}
+</style>

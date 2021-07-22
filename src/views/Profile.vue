@@ -1,10 +1,15 @@
 <template>
   <div id="imageViewerContainer" v-show="showImageViewer">
-    <span @click="toggleViewer" title="Close">x</span>
+    <div class="imgButtons">
+      <span title="Delete">&#128465;</span>
+      <span title="Edit Caption">&#9998;</span>
+      <span @click="toggleViewer" title="Close">x</span>
+    </div>
     <MediaContainer
       :media_url="viewerSrc"
       :mediaType="'Image'"
       :postedBy="username"
+      :caption="caption"
     />
   </div>
   <div v-show="!showImageViewer" id="profileContainer">
@@ -58,6 +63,7 @@ export default {
       settingsOpen: false,
       showImageViewer: false,
       viewerSrc: undefined,
+      caption: undefined,
     };
   },
   created() {
@@ -125,6 +131,7 @@ export default {
 
       if (this.showImageViewer) {
         this.viewerSrc = image.media_url;
+        this.caption = image.caption;
       }
     },
   },
@@ -141,24 +148,29 @@ export default {
 
 span {
   border: 1px solid black;
-  float: right;
+  /* float: right; */
   background: black;
   color: white;
   border-radius: 50px;
   padding: 10px;
   opacity: 50%;
+  display: inline-block;
 }
 
 span:hover {
   opacity: 100%;
   cursor: pointer;
 }
-
+.imgButtons {
+  text-align: right;
+}
 #imageViewerContainer {
   padding: 1px;
   max-width: 1000px;
   margin: auto;
   border-right: 1px solid black;
   border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-bottom-right-radius: 30px;
 }
 </style>

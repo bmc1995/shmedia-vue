@@ -5,6 +5,7 @@
         :media_url="media_url"
         :postedBy="postedBy"
         :mediaType="mediaType"
+        :caption="caption"
       />
     </div>
     <div id="commentsContainer">
@@ -36,6 +37,38 @@ export default {
     },
     comments: {
       type: Array,
+      default: () => {
+        return [
+          {
+            _id: "12312jgh1yhbli",
+            message: "this is a default comment",
+            postedDate: "1/27/21",
+          },
+          {
+            _id: "12312jgh1yhbli",
+            message: "this is a default comment",
+            postedDate: "1/27/21",
+          },
+          {
+            _id: "12312jgh1yhbli",
+            message: "this is a default comment",
+            postedDate: "1/27/21",
+          },
+          {
+            _id: "12312jgh1yhbli",
+            message: "this is a default comment",
+            postedDate: "1/27/21",
+          },
+          {
+            _id: "12312jgh1yhbli",
+            message: "this is a default comment",
+            postedDate: "1/27/21",
+          },
+        ];
+      },
+    },
+    caption: {
+      type: String,
     },
   },
   components: { MediaBig, Comment },

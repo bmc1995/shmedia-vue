@@ -6,6 +6,9 @@
       alt="an image posted by: {{postedBy}}"
     />
   </div>
+  <div class="captionContainer">
+    <span>{{ caption }}</span>
+  </div>
   <div v-if="mediaType == 'Video'" class="VideoContainer">
     <video
       draggable="false"
@@ -30,6 +33,9 @@ export default {
       type: String,
       default: "a user",
     },
+    caption: {
+      type: String,
+    },
   },
 };
 </script>
@@ -39,6 +45,7 @@ img {
   max-height: 500px;
   margin: auto;
   user-select: none;
+  padding: 10px;
 }
 video {
   max-width: 250px;
@@ -46,11 +53,17 @@ video {
   margin: auto;
   user-select: none;
 }
+.captionContainer {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 20px;
+  padding: 5px;
+  text-align: left;
+}
 .imageContainer {
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 525px;
   max-height: 525px;
-  display: flex;
   outline: auto;
 }
 
@@ -64,8 +77,9 @@ video {
     max-width: 90vw;
     max-height: 90vh;
   }
+
   .imageContainer {
-    margin: 2rem auto;
+    /* margin: 2rem auto; */
     /* max-width: 90vw; */
     /* max-height: 90vh; */
     width: auto;
