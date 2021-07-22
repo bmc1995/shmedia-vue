@@ -50,6 +50,7 @@
             name="username"
             id="usernameInput"
             v-model="username"
+            min="4"
           />
         </label>
         <label for="bio">Bio:</label>
@@ -70,6 +71,7 @@
   </div>
 </template>
 <script>
+import oktaConfig from "../../auth_config";
 export default {
   name: "UserSettings",
   props: {
@@ -120,6 +122,7 @@ export default {
       return response;
     },
     async onSubmit() {
+      if (this.username.length < 4) return;
       await this.upload({
         profilePic: this.image,
         bio: this.bio,
@@ -128,9 +131,9 @@ export default {
         username: this.username,
       })
         .then((res) => {
-          this.clearSettings();
           this.closeSettings();
           this.refreshInfo();
+          this.clearSettings();
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -142,10 +145,24 @@ export default {
       });
     },
     refreshInfo() {
+      this.getNewTokens();
+      this.$auth.authStateManager.updateAuthState();
       this.$emit("refresh-info", this.username || this.currentUsername);
     },
     closeSettings() {
       this.$emit("toggle-settings");
+    },
+    getNewTokens() {
+      this.$auth.token
+        .getWithoutPrompt(oktaConfig.oidc)
+        .then((res) => {
+          let tokens = res.tokens;
+
+          this.$auth.tokenManager.setTokens(tokens);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   emits: ["toggle-settings", "refresh-info"],

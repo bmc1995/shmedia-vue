@@ -1,5 +1,6 @@
 <template>
   <div id="imageViewerContainer" v-show="showImageViewer">
+    <span @click="toggleViewer" title="Close">x</span>
     <MediaContainer
       :media_url="viewerSrc"
       :mediaType="'Image'"
@@ -136,5 +137,28 @@ export default {
   /* display: grid; */
   border: 1px solid black;
   margin: auto;
+}
+
+span {
+  border: 1px solid black;
+  float: right;
+  background: black;
+  color: white;
+  border-radius: 50px;
+  padding: 10px;
+  opacity: 50%;
+}
+
+span:hover {
+  opacity: 100%;
+  cursor: pointer;
+}
+
+#imageViewerContainer {
+  padding: 1px;
+  max-width: 1000px;
+  margin: auto;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 </style>

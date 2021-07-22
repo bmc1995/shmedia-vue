@@ -47,6 +47,7 @@ export default {
         caption: this.caption,
         isVideo: this.isVideo || false,
         okta_uid: this.authState.idToken.claims.sub,
+        username: this.authState.idToken.claims.name,
       })
         .then((res) => {
           console.log(res);
@@ -59,6 +60,7 @@ export default {
       formData.append("caption", data.caption);
       formData.append("video", data.isVideo);
       formData.append("okta_uid", data.okta_uid);
+      formData.append("username", data.username);
 
       const response = await fetch("http://localhost:3000/posts/create", {
         method: "POST",
