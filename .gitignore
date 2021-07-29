@@ -11,6 +11,7 @@ geckodriver.log
 .env.local
 .env.*.local
 auth_config.js
+env.js
 
 # Log files
 npm-debug.log*

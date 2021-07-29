@@ -72,6 +72,7 @@
 </template>
 <script>
 import oktaConfig from "../../auth_config";
+import * as ENV from "../../env";
 export default {
   name: "UserSettings",
   props: {
@@ -109,10 +110,13 @@ export default {
       formData.append("bio", fieldData.bio);
 
       const response = await fetch(
-        `http://localhost:3000/users/edit/${this.authState.idToken.claims.sub}`,
+        `http://${ENV.resourceURL}/users/edit/${this.authState.idToken.claims.sub}`,
         {
           method: "POST",
           body: formData,
+          headers: {
+            Authorization: `Bearer ${this.$auth.getAccessToken()}`,
+          },
         }
       ).catch((err) => {
         console.log(err);

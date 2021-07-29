@@ -27,13 +27,14 @@
 </template>
 
 <script>
+import * as ENV from "../../env";
 export default {
   name: "UploadForm",
   data() {
     return {
       previewMediaUrl: null,
       file: null,
-      caption: null,
+      caption: "",
     };
   },
   methods: {
@@ -62,9 +63,12 @@ export default {
       formData.append("okta_uid", data.okta_uid);
       formData.append("username", data.username);
 
-      const response = await fetch("http://localhost:3000/posts/create", {
+      const response = await fetch(`http://${ENV.resourceURL}/posts/create`, {
         method: "POST",
-        // credentials
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${this.$auth.getAccessToken()}`,
+        },
         body: formData,
       })
         .then((res) => {

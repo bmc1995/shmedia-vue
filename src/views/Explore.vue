@@ -22,6 +22,7 @@
 // TODO add filter toggle. maybe menu instead? media, profiles, following, followers
 import ExploreMedia from "../components/ExploreMedia.vue";
 import ExploreProfiles from "../components/ExploreProfiles.vue";
+import * as ENV from "../../env";
 export default {
   name: "Explore",
   components: { ExploreProfiles, ExploreMedia },
@@ -52,7 +53,12 @@ export default {
       //gets all profiles
       console.log("getProfiles called");
       const response = await fetch(
-        "http://localhost:3000/users/explore/profiles"
+        `http://${ENV.resourceURL}/users/explore/profiles`,
+        {
+          headers: {
+            authorization: `Bearer ${this.$auth.getAccessToken()}`,
+          },
+        }
       ).catch((err) => {
         console.log(err);
       });
@@ -63,11 +69,13 @@ export default {
     async getMedia() {
       //gets all media
       console.log("getMedia called");
-      const response = await fetch("http://localhost:3000/posts/explore").catch(
-        (err) => {
-          console.log(err);
-        }
-      );
+      const response = await fetch(`http://${ENV.resourceURL}/posts/explore`, {
+        headers: {
+          Authorization: `Bearer ${this.$auth.getAccessToken()}`,
+        },
+      }).catch((err) => {
+        console.log(err);
+      });
       this.media = await response.json();
     },
   },

@@ -47,6 +47,7 @@ import UserCard from "../components/UserCard.vue";
 import ProfilePosts from "../components/ProfilePosts.vue";
 import UserSettings from "../components/UserSettings.vue";
 import MediaContainer from "../components/mediaContainer.vue";
+import * as ENV from "../../env";
 
 export default {
   name: "Profile",
@@ -98,7 +99,12 @@ export default {
   methods: {
     async getProfileInfo(username) {
       const response = await fetch(
-        `http://localhost:3000/users/find/name/${username}`
+        `http://${ENV.resourceURL}/users/find/name/${username}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.$auth.getAccessToken()}`,
+          },
+        }
       )
         .then((res) => {
           return res.json();
@@ -109,11 +115,13 @@ export default {
       return (this.profile = result);
     },
     async getPosts(okta_uid) {
-      const response = await fetch("http://localhost:3000/posts/byUsers", {
+      const response = await fetch(`http://${ENV.resourceURL}/posts/byUsers`, {
         method: "POST",
         mode: "cors",
+        // credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${this.$auth.getAccessToken}`,
         },
         body: JSON.stringify({ userIdArr: [okta_uid] }),
       });
