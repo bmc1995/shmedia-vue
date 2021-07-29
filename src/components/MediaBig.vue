@@ -35,6 +35,7 @@ export default {
     },
     caption: {
       type: String,
+      default: "",
     },
   },
 };
